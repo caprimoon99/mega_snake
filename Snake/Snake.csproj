@@ -22,9 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Bite.wav" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\Body.png" />
-    <Resource Include="Assets\Bong.wav" />
     <Resource Include="Assets\DeadBody.png" />
     <Resource Include="Assets\DeadHead.png" />
     <Resource Include="Assets\DroidSansMono.ttf" />

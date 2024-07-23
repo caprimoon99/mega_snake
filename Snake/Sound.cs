@@ -1,20 +1,52 @@
 ﻿using System;
 using System.Media;
+using System.Windows.Media;
+using System.IO;
 
 namespace Snake
 {
-    class Sound
+    public static class Sound
     {
-        public static void PlayMusic(string filepath)
+        private static MediaPlayer backgroundMusicPlayer = null;
+
+        public static void PlayBackgroundMusic(string filepath)
         {
-            SoundPlayer musicPlayer = new SoundPlayer();
-            musicPlayer.SoundLocation = filepath;
-            musicPlayer.Play();
+            if (backgroundMusicPlayer == null)
+            {
+                backgroundMusicPlayer = new MediaPlayer();
+                backgroundMusicPlayer.MediaEnded += (sender, e) =>
+                {
+                    backgroundMusicPlayer.Position = TimeSpan.Zero;
+                    backgroundMusicPlayer.Play();
+                };
+            }
+
+            backgroundMusicPlayer.Open(new Uri(filepath, UriKind.Relative));
+            backgroundMusicPlayer.Play();
         }
 
-        static void PlayGameMusic()
+        public static void StopBackgroundMusic()
         {
-            if (Gameloop == 0
+            if (backgroundMusicPlayer != null)
+            {
+                backgroundMusicPlayer.Stop();
+                backgroundMusicPlayer.Close();
+                backgroundMusicPlayer = null;
+            }
         }
+
+        public static void PlaySoundEffect(string filepath)
+        {
+            MediaPlayer soundEffectPlayer = new MediaPlayer();
+            soundEffectPlayer.Open(new Uri(filepath, UriKind.Relative));
+            soundEffectPlayer.Play();
+        }
+
+
+        public static string GetAssetPath(string filename)
+        {
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", filename);
+        }
+
     }
 }

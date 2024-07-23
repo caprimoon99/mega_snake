@@ -175,10 +175,7 @@ namespace Snake
 
             if (hit == GridValue.Outside || hit == GridValue.Snake)
             {
-                using (var soundPlayer = new SoundPlayer(@"C:\Users\schul\source\repos\Snake\Snake\Assets\bong.wav"))
-                {
-                    soundPlayer.Play();
-                };
+                Sound.PlaySoundEffect(Sound.GetAssetPath("Bong.wav"));
                 GameOver = true;
             }
             else if (hit == GridValue.Empty)
@@ -194,10 +191,7 @@ namespace Snake
                 Score++;
                 AddFood();
                 {
-                    using (var soundPlayer = new SoundPlayer(@"C:\Users\schul\source\repos\Snake\Snake\Assets\Bite.wav"))
-                    {
-                        soundPlayer.Play();
-                    }
+                    Sound.PlaySoundEffect(Sound.GetAssetPath("Bite.wav"));
                 }
                 {
                     if (food.Count <= 2)
