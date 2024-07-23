@@ -47,7 +47,7 @@ namespace Snake
         private async Task RunGame()
         {
             Draw();
-            Sound.PlayBackgroundMusic(Sound.GetAssetPath("Primate - Beyond Repair.wav"));
+            Sound.PlayBackgroundMusic(Sound.GetAssetPath("BackgroundMusic.wav"));
             await ShowCountDown();
             Overlay.Visibility = Visibility.Hidden;
             await GameLoop();
