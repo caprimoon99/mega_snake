@@ -82,16 +82,16 @@ namespace Snake
 
             switch (e.Key)
             {
-                case Key.Left:
+                case Key.A:
                     gameState.ChangeDirection(Direction.Left);
                     break;
-                case Key.Right: 
+                case Key.D: 
                     gameState.ChangeDirection(Direction.Right);
                     break;
-                case Key.Up:
+                case Key.W:
                     gameState.ChangeDirection(Direction.Up);
                     break;
-                case Key.Down:
+                case Key.S:
                     gameState.ChangeDirection(Direction.Down);
                     break;
             }
@@ -172,7 +172,7 @@ namespace Snake
                 Position pos = positions[i];
                 ImageSource source = (i == 0) ? Images.DeadHead : Images.DeadBody;
                 gridImages[pos.Row, pos.Col].Source = source;
-                await Task.Delay(31);
+                await Task.Delay(9);
             }
         }
 

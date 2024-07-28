@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
-using System.Media;
-
-namespace Snake
+﻿namespace Snake
 {
     public class GameState
     {
@@ -176,6 +168,7 @@ namespace Snake
             if (hit == GridValue.Outside || hit == GridValue.Snake)
             {
                 Sound.PlaySoundEffect(Sound.GetAssetPath("Bong.wav"));
+                Sound.StopBackgroundMusic();
                 GameOver = true;
             }
             else if (hit == GridValue.Empty)
@@ -189,18 +182,42 @@ namespace Snake
 
                 AddHead(newHeadPos);
                 Score++;
-                AddFood();
+                Sound.PlaySoundEffect(Sound.GetAssetPath("Bite.wav"));
                 {
-                    Sound.PlaySoundEffect(Sound.GetAssetPath("Bite.wav"));
-                }
-                {
-                    if (food.Count <= 2)
+                    double[] probabilities = { 0.48, 0.34, 0.13, 0.04, 0.01 };
+                    int foodToAdd = GetRandomFoodCount(random, probabilities);
+
+                    int currentFoodCount = food.Count;
+                    int maxFoodCount = 6;
+
+                    if (currentFoodCount == 1)
                     {
                         AddFood();
+                        currentFoodCount++;
+                    }
+                    for (int i = 0; i < foodToAdd && currentFoodCount < maxFoodCount; i++)
+                    {
+                        AddFood();
+                        currentFoodCount++;
                     }
                 }
-
             }
+
+        }
+
+        private int GetRandomFoodCount(Random random, double[] probabilities)
+        {
+            double cumulative = 0.0;
+            double rand = random.NextDouble();
+            for (int i = 0; i < probabilities.Length; i++)
+            {
+                cumulative += probabilities[i];
+                if (rand < cumulative)
+                {
+                    return i;
+                }
+            }
+            return 0;
         }
 
     }

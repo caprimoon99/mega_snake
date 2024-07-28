@@ -1,6 +1,4 @@
-﻿using System;
-using System.Media;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.IO;
 
 namespace Snake
